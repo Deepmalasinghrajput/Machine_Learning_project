@@ -1,55 +1,41 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("predictForm");
     const submitBtn = document.getElementById("submitBtn");
-    const resultPanel = document.getElementById("resultPanel");
+    const resultBox = document.getElementById("resultBox");
+
+    function checkScore(el) {
+        const v = Number(el.value);
+        const ok = el.value === "" || (v >= 0 && v <= 100);
+        el.classList.toggle("err", !ok && el.value !== "");
+        return ok;
+    }
+
+    ["reading_score", "writing_score"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener("input", () => checkScore(el));
+    });
 
     if (form && submitBtn) {
-        form.addEventListener("submit", (event) => {
-            const scoreFields = ["reading_score", "writing_score"];
+        form.addEventListener("submit", (e) => {
             let valid = true;
-
-            scoreFields.forEach((id) => {
-                const input = document.getElementById(id);
-                if (!input) return;
-
-                const value = Number(input.value);
-                const inRange = input.value !== "" && value >= 0 && value <= 100;
-
-                input.classList.toggle("field-error", !inRange);
-                valid = valid && inRange;
+            ["reading_score", "writing_score"].forEach((id) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const v = Number(el.value);
+                const ok = el.value !== "" && v >= 0 && v <= 100;
+                el.classList.toggle("err", !ok);
+                if (!ok) valid = false;
             });
-
             if (!valid) {
-                event.preventDefault();
-                submitBtn.classList.remove("is-loading");
-                submitBtn.textContent = "Predict maths score";
+                e.preventDefault();
                 return;
             }
-
-            submitBtn.classList.add("is-loading");
             submitBtn.textContent = "Predicting…";
-        });
-
-        ["reading_score", "writing_score"].forEach((id) => {
-            const input = document.getElementById(id);
-            if (!input) return;
-
-            input.addEventListener("input", () => {
-                const value = Number(input.value);
-                const inRange = input.value === "" || (value >= 0 && value <= 100);
-                input.classList.toggle("field-error", !inRange);
-            });
+            submitBtn.classList.add("loading");
         });
     }
 
-    if (resultPanel) {
-        const prefersReducedMotion = window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
-
-        resultPanel.scrollIntoView({
-            behavior: prefersReducedMotion ? "auto" : "smooth",
-            block: "nearest",
-        });
+    if (resultBox) {
+        resultBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
 });
