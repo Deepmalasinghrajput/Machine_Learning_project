@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#06372f">
+    <meta name="description" content="Markwise predicts student maths scores from reading, writing, and background details.">
     <title>Markwise — Student Exam Score Predictor</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,18 +16,43 @@
 
     <header class="site-header">
         <a class="brand" href="{{ url_for('index') }}">Markwise</a>
+        <a class="nav-link nav-cta" href="{{ url_for('predict_datapoint') }}">Get started</a>
     </header>
 
-    <main class="hero">
-        <p class="brand-hero">Markwise</p>
-        <h1 class="hero-title">See a maths score before the exam.</h1>
-        <p class="hero-lede">
-            Enter reading, writing, and background details to estimate maths performance in seconds.
-        </p>
-        <div class="hero-actions">
-            <a class="btn btn-primary" href="{{ url_for('predict_datapoint') }}">Predict a score</a>
-        </div>
+    <main>
+        <section class="hero">
+            <p class="brand-hero">Markwise</p>
+            <h1 class="hero-title">See a maths score before the exam.</h1>
+            <p class="hero-lede">
+                Enter reading, writing, and background details to estimate maths performance in seconds.
+            </p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="{{ url_for('predict_datapoint') }}">Predict a score</a>
+            </div>
+        </section>
+
+        <section class="features" aria-label="Features">
+            <article class="feature-card">
+                <span class="feature-icon" aria-hidden="true">01</span>
+                <h2>Fast estimates</h2>
+                <p>Get a predicted maths score instantly from a short student profile form.</p>
+            </article>
+            <article class="feature-card">
+                <span class="feature-icon" aria-hidden="true">02</span>
+                <h2>ML-powered</h2>
+                <p>Built with scikit-learn and XGBoost on real student performance data.</p>
+            </article>
+            <article class="feature-card">
+                <span class="feature-icon" aria-hidden="true">03</span>
+                <h2>Works everywhere</h2>
+                <p>Responsive design that looks great on phone, tablet, and desktop.</p>
+            </article>
+        </section>
     </main>
+
+    <footer class="site-footer">
+        <p>Markwise — Student Exam Performance Predictor</p>
+    </footer>
 
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
