@@ -1,15 +1,23 @@
 import sys
-import traceback
+
 
 def error_message_detail(error, error_detail=None):
     """
     Returns detailed error message with filename and line number.
     """
-    _, _, exc_tb = sys.exc_info()
+    exc_tb = None
+    if error_detail is not None:
+        _, _, exc_tb = error_detail.exc_info()
+    else:
+        _, _, exc_tb = sys.exc_info()
+
+    if exc_tb is None:
+        return f"Error: {str(error)}"
+
     file_name = exc_tb.tb_frame.f_code.co_filename
     line_number = exc_tb.tb_lineno
-    error_message = f"Error occurred in script [{file_name}] at line [{line_number}]: {str(error)}"
-    return error_message
+    return f"Error occurred in script [{file_name}] at line [{line_number}]: {str(error)}"
+
 
 class CustomException(Exception):
     def __init__(self, error, error_detail=None):

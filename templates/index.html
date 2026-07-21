@@ -1,1 +1,32 @@
-<h1>Welcome to the home page</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markwise — Student Exam Score Predictor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="page-landing">
+    <div class="hero-plane" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <a class="brand" href="{{ url_for('index') }}">Markwise</a>
+    </header>
+
+    <main class="hero">
+        <p class="brand-hero">Markwise</p>
+        <h1 class="hero-title">See a maths score before the exam.</h1>
+        <p class="hero-lede">
+            Enter reading, writing, and background details to estimate maths performance in seconds.
+        </p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="{{ url_for('predict_datapoint') }}">Predict a score</a>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
